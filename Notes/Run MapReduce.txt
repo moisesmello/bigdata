@@ -1,0 +1,8 @@
+- Create Maven project (InteliJ Idea)
+- Develop main, mapper and reducer
+- Copy dependencies into pom.xml
+- Click Enable Import dependencies
+- Compile the project and generate the jar file
+- Copy the jar file to the VM
+- Copy the jar file to Hadoop
+- Execute the jar file [hadoop jar <FileName> <params>]

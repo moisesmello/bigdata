@@ -10,3 +10,12 @@ git commit -m "Description"
 git push origin master
 
 Test
+
+
+******************************
+Hadoop Structue
+
+Mater - Namenode
+Workers - Datanodes
+
+HDFS (Hadoop Distributed File System)
