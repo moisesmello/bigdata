@@ -26,6 +26,7 @@ public class WebHitCounterMain {
         job.setJarByClass(WebHitCounterMain.class);
         job.setMapperClass(mapper.WebHitCounterMapper.class);
         job.setReducerClass(reducer.WebHitCounterReducer.class);
+        job.setCombinerClass(reducer.WebHitCounterReducer.class);
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
         FileInputFormat.addInputPath(job, new Path(args[0]));

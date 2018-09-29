@@ -1,0 +1,32 @@
+drivers = LOAD '/data/pig/drivers.csv' USING PigStorage(',') as (driverId:int,name:chararray,ssn:chararray,location:chararray,certified:chararray,wage_plan:chararray);
+
+
+events = LOAD '/data/pig/truck_event_text_partition.csv' USING PigStorage(',') as (driverId:int,truckId:int,eventTime:chararray,eventType:chararray,longitude:chararray,latitude:chararray,eventKey:chararray,CorrelationId:chararray,driverName:chararray,routeId:chararray,routeName:chararray,eventDate:chararray);
+
+
+driversMistake = FILTER events BY (eventType != 'Normal' AND driverId IS NOT NULL);
+
+--rm DriversMistakes
+
+STORE driversMistake INTO 'DriversMistakes' USING PigStorage(',');
+
+uncertifiedDrivers = FILTER drivers BY (certified != 'Y' AND driverId IS NOT NULL);
+
+--rm UncertifiedDrivers
+
+STORE uncertifiedDrivers INTO 'UncertifiedDrivers' USING PigStorage(',');
+
+
+timesheet = LOAD '/data/pig/timesheet.csv' USING PigStorage(',') as (driverId:int,week:int,hours_logged:int,miles_logged:int);
+
+driverTimesheetGroup = GROUP timesheet BY driverId;
+
+driverHistory = foreach driverTimesheetGroup generate group as driverId, SUM($1.hours_logged) as hours_logged, SUM($1.miles_logged) as miles_logged;
+
+driverHistoryDetails = JOIN driverHistory BY (driverId), drivers BY (driverId);
+
+driverHistoryOutput = foreach driverHistoryDetails generate drivers::driverId, drivers::name, drivers::wage_plan, driverHistory::hours_logged, driverHistory::miles_logged;
+
+--rm DriverHistory
+
+STORE driverHistoryOutput INTO 'DriverHistory' USING PigStorage(',');
