@@ -1,0 +1,15 @@
+EXECUTION
+pig -x local -param_file pig_param myPigScript.pig
+
+PARAM FILE
+delim=","
+OUTPUT_DIR=mypigoutput
+
+CODE::
+books = load 'books.csv' using PigStorage('$delim') as (id:int, author:chararray, name:chararray, year:int);
+
+dedupe = distinct books;
+
+fs -rm -r $OUTPUT_DIR
+
+store dedupe into '$OUTPUT_DIR' using PigStorage(',');
