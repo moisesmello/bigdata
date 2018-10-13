@@ -1,0 +1,18 @@
+impala-shell
+
+invalidate metadata
+
+refresh <table>
+
+profile; (run afte query) (exec plan)
+
+summary;
+
+to insert data -> insert overwrite table <query>
+
+-> No delete exists
+
+
+shift + insert -> copy data
+
+- make sure the table has correct rights. Use chmod -R 777 /<path>/db and then run the refresh <table>

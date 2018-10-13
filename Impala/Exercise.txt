@@ -1,0 +1,3 @@
+INSERT OVERWRITE movie_stats SELECT movie_name, CASE movie_name WHEN 'Summer of Sam (1999)' THEN 0 ELSE avg_rating END, hash_tag, hash_tag_count FROM movie_stats;
+
+INSERT OVERWRITE movie_stats SELECT * FROM movie_stats WHERE movie_name <> 'Zero Dark Thirty (2012)';

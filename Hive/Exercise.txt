@@ -1,0 +1,29 @@
+CREATE DATABASE basedb LOCATION '/data/basedb';
+
+
+CREATE TABLE Movie (MovieID int, Title string, Genres string) row format delimited fields terminated by ',';
+
+CREATE TABLE Rating (UserID int, MovieID int, Rating decimal(10,2), Timestamp bigint) row format delimited fields terminated by ',';
+
+CREATE TABLE Tag (UserID int, MovieID int, Tag string, timestamp bigint) row format delimited fields terminated by ',';
+
+cd home/cloudera/Deskop
+
+hadoop fs -copyFromLocal movies.csv /data/basedb/movie
+hadoop fs -copyFromLocal ratings.csv /data/basedb/rating
+hadoop fs -copyFromLocal tags.csv /data/basedb/tag
+
+/*
+CREATE TABLE movie_stats
+SELECT a.title AS movie_name, 
+AVG(b.rating) AS avg_rating, 
+MAX(c.tag) AS hash_tag, 
+MAX(c.NumberTags) AS hash_tag_count 
+FROM movie a 
+INNER JOIN rating b ON (a.MovieID = b.MovieID) INNER JOIN (SELECT MovieID, tag, COUNT(0) AS NumberTags, ROW_NUMBER() OVER (PARTITION BY MovieID ORDER BY COUNT(0) DESC) AS TopTag FROM tag GROUP BY MovieID, Tag) c ON (c.MovieID = a.MovieID AND c.TopTag = 1) 
+GROUP BY a.title;
+*/
+
+DROP TABLE IF EXISTS movie_stats;
+
+CREATE TABLE movie_stats AS SELECT a.title AS movie_name, AVG(b.rating) AS avg_rating, MAX(c.tag) AS hash_tag, MAX(c.NumberTags) AS hash_tag_count FROM movie a INNER JOIN rating b ON (a.MovieID = b.MovieID) INNER JOIN (SELECT MovieID, tag, COUNT(0) AS NumberTags, ROW_NUMBER() OVER (PARTITION BY MovieID ORDER BY COUNT(0) DESC) AS TopTag FROM tag GROUP BY MovieID, Tag) c ON (c.MovieID = a.MovieID AND c.TopTag = 1) GROUP BY a.title;
