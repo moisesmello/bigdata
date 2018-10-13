@@ -16,3 +16,32 @@ create table t2 like t1;
 create table t2 as select * from t1;
 alter table t1 set tblproperties ('field.delim'=",");
 insert overwrite table t1 select * from t2;
+
+-- TO UPDATE
+insert overwrite table tags select movieid, userid, tag, case tag when 'off-beat comedy' then 0 else tstamp end from tags;
+
+-- TO DELETE 
+insert overwrite table tags select * from tags where tag != 'Nudity (Full Frontal)' ;
+
+-- TO SELECT movie with avg rating
+select m.movieid, m.title, avg(r.rating) from movies m join ratings r on m.movieid = r.movieid group by m.movieid, m.title
+
+-- TO SELECT movie with max tag count
+select n.movieid, n.tag, n.cnt from (select m.movieid, tag , max(m.cnt) over(partition by movieid) cnt2, m.cnt from (select movieid, tag, count(*) cnt from tags group by movieid, tag order by count(*) desc limit 10) as m)n where cnt=cnt2;
+
+-- SO THE FINAL SQL WOULD BE
+SELECT avgRating.title, avgRating.avrt, maxTag.tag, maxTag.cnt
+FROM
+(select m.movieid, m.title, avg(r.rating) as avrt from movies m join ratings r on m.movieid = r.movieid group by m.movieid, m.title) avgRating
+JOIN
+(select n.movieid, n.tag, n.cnt from (select m.movieid, tag , max(m.cnt) over(partition by movieid) cnt2, m.cnt from (select movieid, tag, count(*) cnt from tags group by movieid, tag) as m)n where cnt=cnt2) maxTag
+ON avgRating.movieid = maxTag.movieid;
+
+--HOW TO RUN IMPALA SCRIPT
+impala-shell -f yourScript.hql
+
+--HOW TO RUN HIVE SCRIPT
+hive -f yourScript.hql
+
+--HOW TO RUN IMPALA-SHELL WITHIN UNIX SHELL SCRIPT
+impala-shell -d hiveexe -q "insert overwrite table tags select * from tags where tag != '$1'"

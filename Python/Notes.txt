@@ -1,0 +1,3 @@
+run on the command line: python
+
+var x = 5;

@@ -1,3 +1,9 @@
+hadoop fs -mkdir /data/basedb/
+
+hadoop fs -copyFromLocal home/cloudera/Deskop/movies.csv /data/basedb/movie
+hadoop fs -copyFromLocal home/cloudera/Deskop/ratings.csv /data/basedb/rating
+hadoop fs -copyFromLocal home/cloudera/Deskop/tags.csv /data/basedb/tag
+
 CREATE DATABASE basedb LOCATION '/data/basedb';
 
 
@@ -6,12 +12,6 @@ CREATE TABLE Movie (MovieID int, Title string, Genres string) row format delimit
 CREATE TABLE Rating (UserID int, MovieID int, Rating decimal(10,2), Timestamp bigint) row format delimited fields terminated by ',';
 
 CREATE TABLE Tag (UserID int, MovieID int, Tag string, timestamp bigint) row format delimited fields terminated by ',';
-
-cd home/cloudera/Deskop
-
-hadoop fs -copyFromLocal movies.csv /data/basedb/movie
-hadoop fs -copyFromLocal ratings.csv /data/basedb/rating
-hadoop fs -copyFromLocal tags.csv /data/basedb/tag
 
 /*
 CREATE TABLE movie_stats

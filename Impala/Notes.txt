@@ -16,3 +16,12 @@ to insert data -> insert overwrite table <query>
 shift + insert -> copy data
 
 - make sure the table has correct rights. Use chmod -R 777 /<path>/db and then run the refresh <table>
+
+
+- Impala doesn't use Map Reduce, thus it's faster (written in C++). Also, if a node fails, it doesn't lunch it in another one, as Hive does
+
+- Execute in shell script
+
+impala-shell -d <db name> -q "<query> $1"
+
+sh -x <script name>
