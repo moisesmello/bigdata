@@ -1,0 +1,72 @@
+TO MAKE SPARK SYNC WITH HIVE
+
+- sudo cp /etc/hive/conf.dist/hive-site.xml /etc/spark/conf.dist/
+- then restart Spark
+
+
+SCALA
+
+val x = sc.textFile("/data/sample_data.txt")
+
+val y = x.map(x => x.split('[')(1))
+
+val z = y.map(x => x.split(':')(0))
+
+val a = z.map(x => (x, 1))
+
+val b = a.reduceByKey((x,z) => x+z)
+
+**************
+
+PYTHON (pyspark)
+val x = sc.textFile("/data/sample_data.txt")
+
+val y = x.map(lambda x: x.split('[')(1))
+
+val z = y.map(lambda x: x.split(':')(0))
+
+val a = z.map(lambda x: (x, 1))
+
+val b = a.reduceByKey(lambda (x,z): x+z)
+
+
+***************
+
+val file = sc.textFile("/data/employee.txt")
+
+case class Employee(FirstName: String, LastName: String, Department:Int)
+
+val mydf = file.map(x => x.split(",")).map(q => Employee(q(0), q(1), q(2).toInt)).toDF()
+
+mydf.show
+mydf.collect
+
+mydf.printSchema
+
+sqlContext.sql("USE basedb")
+
+sqlContext.sql("CREATE DATABASE SparkTest")
+
+sqlContext.sql("USE SparkTest")
+
+mydf.registerTempTable("Employee")
+
+sqlContext.sql("SELECT * FROM Employee")
+
+var mdfEmployee = sqlContext.sql("SELECT * FROM Employee")
+
+mdfEmployee.printSchema
+
+sqlContext.sql("CREATE TABLE sparktest.EmployeeData(FirstName string, LastName string, DepartmentID int)")
+
+sqlContext.sql("INSERT INTO sparktest.EmployeeData SELECT * FROM employee")
+
+sqlContext.sql("SELECT * FROM EmployeeData").show
+
+val toSaveToFile = mydf.map(x => x.mkString("|"))
+
+toSaveToFile.saveAsTextFile("/data/Spark/result")
+
+Check the file:
+hadoop fs -cat /data/Spark/result/*
+

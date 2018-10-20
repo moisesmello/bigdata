@@ -1,0 +1,29 @@
+- RDD
+
+- spark-shell -> to open Spark command line
+
+- val = constant | var = variable
+
+- sc = Spark Context
+
+- sqlContext = SQL Context
+
+- sqlContext.sql("<SQL Statemen>") -> to use SQL with Spark
+
+- sc.textFile("<file path>") -> open a file
+
+- sc.saveAsextFile("<File path>") -> to save a file
+
+- toDF() -> to convert a variable to a Data Frame
+
+- toInt -> Convert o Int
+
+- df.printSchema
+  df.show
+  df.collect
+  df.printSchema
+  df.select("<column name>")
+
+- variable.map()
+
+- df.printSchema
