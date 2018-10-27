@@ -70,3 +70,6 @@ toSaveToFile.saveAsTextFile("/data/Spark/result")
 Check the file:
 hadoop fs -cat /data/Spark/result/*
 
+mydf.write.mode("overwrite|append").saveasTable("<db>.<table name>")
+
+

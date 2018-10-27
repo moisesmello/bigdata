@@ -1,0 +1,3 @@
+sqoop export --connect jdbc:mysql://localhost:3306/Scoop --username root --password cloudera --table TestTable --fields-terminated-by ',' --export-dir /data/TestTable
+
+sqoop import --connect jdbc:mysql://localhost:3306/Scoop --username root --password cloudera --table TestTable --m 1 --target-dir /data/sqoopimport

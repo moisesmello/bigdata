@@ -1,0 +1,1 @@
+- We can cache an RDD (to disk / memory), and it's stored in a serialized way (compacted)
