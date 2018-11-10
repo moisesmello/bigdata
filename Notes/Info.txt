@@ -3,6 +3,12 @@ https://github.com/shyam-kantesariya/big_data_course
 Git Hub:
 moisesmello
 
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/moisesmello/Project.git
+git push -u origin master
+
 GIT Command
 git status
 git add .
