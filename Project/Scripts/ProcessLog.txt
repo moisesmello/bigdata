@@ -3,7 +3,7 @@ val transactionFile = sc.textFile("/data/Project/trans_log.csv");
 val records = transactionFile.map(x => x.split(','))
 
 
-case class Product()
+case class Product(transactionID, productCode, amount, discount, addRemove, storeNum, employeeNum, lane, date)
 
 records.filter(x => x(1) == "TT").map(q => Product( q(0) ).toDF()
 
