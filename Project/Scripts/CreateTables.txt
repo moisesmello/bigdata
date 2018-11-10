@@ -1,0 +1,27 @@
+hadoop fs -mkdir /data/Project/Database
+hadoop fs -chmod 777 /data/Project
+hadoop fs -chmod 777 /data/Project/Database
+
+CREATE DATABASE Project LOCATION '/data/Project/Database';
+
+CREATE TABLE product (product_id int, product_code string, add_dt timestamp, remove_dt timestamp) row format delimited fields terminated by ',';
+
+CREATE TABLE store (store_id int, store_num string, city string, address string, open_date timestamp, close_date timestamp) row format delimited fields terminated by ',';
+
+CREATE TABLE employee (employee_id int, employee_num string, store_num string, employee_name string, joining_date timestamp,	designation string) row format delimited fields terminated by ',';
+
+CREATE TABLE loyalty (loyalty_id int, cust_num int, card_no string, joining_date timestamp, points decimal(10,2)) row format delimited fields terminated by ',';
+
+CREATE TABLE promotion (promotion_id int, promo_code string, description string, promo_start_date timestamp, promo_end_date timestamp) row format delimited fields terminated by ',';
+
+******************************
+SHELL SCRIPT
+hadoop fs -cp /data/Project/product.csv /data/Project/Database/product
+
+hadoop fs -cp /data/Project/store.csv /data/Project/Database/store
+
+hadoop fs -cp /data/Project/employee.csv /data/Project/Database/employee
+
+hadoop fs -copyFromLocal loyalty.csv /data/Project/Database/loyalty
+
+hadoop fs -copyFromLocal promotions.csv /data/Project/Database/promotion

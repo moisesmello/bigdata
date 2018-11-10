@@ -45,3 +45,8 @@ hive -f yourScript.hql
 
 --HOW TO RUN IMPALA-SHELL WITHIN UNIX SHELL SCRIPT
 impala-shell -d hiveexe -q "insert overwrite table tags select * from tags where tag != '$1'"
+
+-- INDEXES
+CREATE INDEX idxPersonName ON TABLE person(name) AS 'org.apache.hadoop.hive.ql.index.compact.CompactIndexHandler' WITH DEFERRED REBUILD;
+
+- show index on <table name>

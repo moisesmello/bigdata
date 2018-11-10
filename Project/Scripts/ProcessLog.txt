@@ -1,0 +1,11 @@
+val transactionFile = sc.textFile("/data/Project/trans_log.csv");
+
+val records = transactionFile.map(x => x.split(','))
+
+
+case class Product()
+
+records.filter(x => x(1) == "TT").map(q => Product( q(0) ).toDF()
+
+*******************************
+records.filter(x => x(1) == "TT").collect.foreach(x=> println(x.mkString(",")))

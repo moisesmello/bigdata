@@ -1,0 +1,9 @@
+SELECT name, age, 
+	CASE  WHEN age BETWEEN 0 AND 14 	THEN 'Child' 
+	      WHEN age BETWEEN 15 AND 24 	THEN 'Youth' 
+	      WHEN age BETWEEN 25 AND 65 	THEN 'Adult' 
+	      WHEN age > 65 			THEN 'Senior'  
+	      ELSE Age  
+        END FROM person;
+
+SELECT name, age, CASE  WHEN age BETWEEN 0 AND 14 THEN 'Child' WHEN age BETWEEN 15 AND 24 THEN 'Youth' WHEN age BETWEEN 25 AND 65 THEN 'Adult' WHEN age > 65 THEN 'Senior' ELSE NULL END FROM person;

@@ -1,0 +1,20 @@
+PROJECT STRUCTURE
+
+HADOOP
+/data/Project
+/scripts
+
+VM
+/home/Moises/Project/data
+/home/Moises/Project/scripts
+
+
+OUTPUT
+TransactionID,ProductID,StoreID,LoyaltyID,amount,discount,date
+
+
+
+- Import Dim tables
+- Load log file
+
+Transaction ID = 'daydate-yyyymmdd' + 'store_id' + 'lane' + 'Trans_Seq'

@@ -1,0 +1,19 @@
+- Create a MAVEN project
+- Create a package
+- Create a class
+- Modify the POM.xml file
+- Modify the Project Structure to create the jar file (Poject structure -> Add artifacts)
+- Generate the .jar file
+
+
+On Hive:
+
+- In a database ->
+- add JAR <Local path to your JAR file> 
+- create function <function name> as ‘<package.Class>” 
+
+- Create permanent function
+
+1. move jar to HDFS
+2. CREATE FUNCTION AgeGroup AS 'UDF.AgeGroup' using jar 'hdfs://quickstart.cloudera:8020/udf/CustomUDF.jar';
+
