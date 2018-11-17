@@ -1,8 +1,11 @@
+hadoop fs -mkdir /data/Project/
 hadoop fs -mkdir /data/Project/Database
 hadoop fs -chmod 777 /data/Project
 hadoop fs -chmod 777 /data/Project/Database
 
 CREATE DATABASE Project LOCATION '/data/Project/Database';
+
+USE Project;
 
 CREATE TABLE product (product_id int, product_code string, add_dt timestamp, remove_dt timestamp) row format delimited fields terminated by ',';
 
