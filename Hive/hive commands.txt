@@ -50,3 +50,7 @@ impala-shell -d hiveexe -q "insert overwrite table tags select * from tags where
 CREATE INDEX idxPersonName ON TABLE person(name) AS 'org.apache.hadoop.hive.ql.index.compact.CompactIndexHandler' WITH DEFERRED REBUILD;
 
 - show index on <table name>
+
+
+**********
+When creating a table with the EXTERNAL keyword, even if the table is dropped, the files will remain

@@ -1,0 +1,30 @@
+MAP 	-> can have inumerous key-pairs
+STRUCT 	-> fixed
+
+
+MAP
+
+create table resultMap(student_id int, bands map<string,double>) row format delimited fields terminated by '|' collection items terminated by ',' map keys terminated by ':';
+
+10|reading:4.5,speaking:6.7,listening:7.5,writing:7.0
+20|reading:5.5,speaking:6.5,listening:6.5,writing:8.0 
+
+SELECT student_id, band["reading"]  FROM resultMap;
+
+
+STRUCT
+
+create table rider(name string, age int, vehicle_conf struct<reg_no:string, top_speed:int, cc:int, brand:string>) row format delimited fields terminated by '|' collection items terminated by ','; 
+
+Sukhajinder|27|QC123,250,600,YAMAHA
+Cesar|35|ON123,300,700,HONDA 
+
+SELECT vehicle_conf.brand FROM rider;
+
+XML
+
+Create TABLE xmltable(xmldata string) STORED AS TEXTFILE; 
+
+<dependency><groupId>org.apache.hive</groupId><artifactId>hive-exec</artifactId><version> 0.8.0</version></dependency> <dependency><groupId>org.apache.hadoop</groupId><artifactId>hadoop-core</artifactId><ver sion>1.2.1</version></dependency> <dependency><groupId>junit</groupId><artifactId>junit</artifactId><version>4.5</version><sco pe>test</scope></dependency> 
+
+SELECT xpath(xmldata, 'dependency/groupId/text()')[0] FROM xmltable;

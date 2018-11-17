@@ -17,3 +17,10 @@ On Hive:
 1. move jar to HDFS
 2. CREATE FUNCTION AgeGroup AS 'UDF.AgeGroup' using jar 'hdfs://quickstart.cloudera:8020/udf/CustomUDF.jar';
 
+
+DEBUGING:
+- Execute hive by: 
+
+hive -hiveconf hive.log.file=debug_hive_20180403.log -hiveconf hive.log.dir=/tmp/hivedebug/ -hiveconf hive.root.logger=DEBUG,DRFA 
+
+- See the log

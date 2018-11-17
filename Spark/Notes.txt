@@ -27,3 +27,7 @@
 - variable.map()
 
 - df.printSchema
+
+- spark-shell -i <file name> => to run a script file
+
+- records.filter(x => x(1) == "TT").collect.foreach(x=> println(x.mkString(",")))
