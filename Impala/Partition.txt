@@ -1,0 +1,29 @@
+- When inserting into a partition table, use the insert into command
+- Use Impala
+- When new files are coming in, we can append to the table using a staging table and informing the partition
+
+- Create a partitioned table
+CREATE TABLE transaction (tx_id int, product_id int, amt double, qty double) partitioned by (trans_dt string) row format delimited fields terminated by ','; 
+
+-- Manually insert data
+INSERT INTO transaction PARTITION (trans_dt='23-Nov-2018') VALUES (1,1,2,3); 
+INSERT INTO transaction PARTITION (trans_dt='24-Nov-2018') VALUES (2,1,2,3);
+
+-- Insert from a query
+INSERT INTO transaction_part PARTITION (trans_dt) SELECT tx_id, product_id, amt, qty, trans_dt FROM transaction;
+
+-- Drop a partition
+ALTER TABLE transaction DROP PARTITION (trans_dt='02')
+
+Deleting a partition doesn't mean we delete the whole column, but a specific item.
+
+-- Add a partition to an existing table
+ALTER TABLE transaction ADD PARTITION(trans_dt='02') [optional: LOCATION '<path>']
+
+We could create the directory with the files for the new patition
+
+-- Updating/deliting on a partition table will affect only the mentioned partition
+INSERT OVERWRITE <table> PARTITION(trans_dt) SELECT * FROM transction WHERE trans_dt='02-Jun-12' LIMIT 1
+
+Ex.:
+INSERT OVERWRITE transaction_part PARTITION(trans_dt) SELECT tx_id, product_id, amt, case when tx_id=116835 then 2000 else qty end as qty, trans_dt  FROM transaction_part WHERE trans_dt = '29-Jun-14';

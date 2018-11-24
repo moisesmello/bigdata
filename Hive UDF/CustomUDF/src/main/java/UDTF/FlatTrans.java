@@ -33,6 +33,8 @@ public class FlatTrans extends GenericUDTF {
         // output inspectors -- an object with three fields!
         List<String> fieldNames = new ArrayList<String>(2);
         List<ObjectInspector> fieldOIs = new ArrayList<ObjectInspector>(2);
+
+        // This is the output format (Column and data type)
         fieldNames.add("trans_id");
         fieldNames.add("product_id");
         fieldOIs.add(PrimitiveObjectInspectorFactory.javaIntObjectInspector);
@@ -52,6 +54,7 @@ public class FlatTrans extends GenericUDTF {
         int trans_id = Integer.parseInt(tokens[0]);
         String[] product_id = tokens[1].split(",");
 
+        // For each record, create multiple records
         for(String product: product_id){
             result.add(new Object[]{trans_id, Integer.parseInt(product)});
         }
@@ -62,7 +65,10 @@ public class FlatTrans extends GenericUDTF {
     @Override
     public void process(Object[] record) throws HiveException {
         final String line = stringOI.getPrimitiveJavaObject(record[0]).toString();
+
+        // results has a list of splitted records
         ArrayList<Object[]> results = processInputRecord(line);
+
         Iterator<Object[]> it = results.iterator();
 
         while (it.hasNext()) {

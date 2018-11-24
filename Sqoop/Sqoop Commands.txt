@@ -2,7 +2,7 @@ sqoop export --connect jdbc:mysql://localhost:3306/retail_db --username retail_d
 
 sqoop import --connect jdbc:mysql://localhost:3306/retail_db --username retail_dba --password cloudera --table test --m 1 --target-dir /sqoopimport 
 
-sqoop eval -- connect jdbc:mysql://localhost :3306/retail_db --username retail_dba -password cloudera -e "INSERT INTO Test VALUES(999, 'name999')“
+sqoop eval -- connect jdbc:mysql://localhost :3306/retail_db --username retail_dba -password cloudera -e "INSERT INTO Test VALUES(999, 'name999')"
 
 sqoop job --create myjob -- import --connect jdbc:mysql://localhost:3306/retail_db --username retail_dba --password cloudera --table departments --target-dir <HDFS DIRECTORY NAME> 
 

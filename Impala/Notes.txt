@@ -25,3 +25,6 @@ shift + insert -> copy data
 impala-shell -d <db name> -q "<query> $1"
 
 sh -x <script name>
+
+- show create table <table name>: shows the DDL of a table
+- show partitions <table name>: shows the partitions of a table

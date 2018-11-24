@@ -3,6 +3,7 @@ package UDF;
 import java.util.LinkedList;
 import java.util.List;
 
+import UDAF.IsAccepted;
 import junit.framework.Assert;
 import org.apache.hadoop.hive.ql.metadata.HiveException;
 import org.apache.hadoop.hive.ql.udf.generic.GenericUDF.DeferredJavaObject;

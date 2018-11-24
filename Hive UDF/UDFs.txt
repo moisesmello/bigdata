@@ -1,0 +1,8 @@
+UDF (User Defined Function)
+Single record -> Single record
+
+UDAF (User Defined Aggregate Function)
+Multiple Records -> Single output
+
+UDTF (User Defined Tabular Function)
+Single record -> Multiple records
