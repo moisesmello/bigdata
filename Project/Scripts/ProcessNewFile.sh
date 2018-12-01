@@ -5,3 +5,5 @@ OUTPUT_FOLDER="/data/Project/Transactions/Output"
 hadoop fs -copyFromLocal $SOURCE_FOLDER $TARGET_FOLDER
 
 spark-shell -i ProcessTransactions.scala --conf spark.driver.args="$TARGET_FOLDER/trans_log.csv"
+
+sh -x ExportTransactions.sh /data/Project5/Database/transaction_stage/

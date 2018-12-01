@@ -13,3 +13,5 @@ CREATE TABLE IF NOT EXISTS loyalty (loyalty_id int, cust_num int, card_no string
 CREATE TABLE IF NOT EXISTS promotion (promotion_id int, promo_code string, description string, promo_start_date timestamp, promo_end_date timestamp) row format delimited fields terminated by ',';
 
 CREATE TABLE IF NOT EXISTS transaction(transactionID char(32),product_id int, store_id int, loyalty_id int, amount double, discount double) PARTITIONED BY (transaction_date string) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',';
+
+CREATE TABLE IF NOT EXISTS transaction_stage(transactionID string,product_id int, store_id int, loyalty_id int, amount double, discount double, transaction_date string) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',';

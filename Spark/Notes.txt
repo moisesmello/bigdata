@@ -37,3 +37,6 @@
 
 var myvalue = 5
 "%05d".format(myvalue)
+
+Array
+- val dataset = Seq((1, "Moises"), (2, "Juh"), (3, "Bryan"))

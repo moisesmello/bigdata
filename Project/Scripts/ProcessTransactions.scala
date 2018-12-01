@@ -42,9 +42,11 @@ val transId = getTransId(_,_,_,_)
 
 sqlContext.udf.register("getTransId", transId)
 
-sqlContext.sql("INSERT INTO transaction PARTITION(transaction_date) SELECT getTransId(TransactionDate, store_id, product_id, TransactionID) AS TransactionID, product_id, store_id, LoyaltyID, amount, discount, CAST(TransactionDate AS DATE)  FROM Output");
+sqlContext.sql("TRUNCATE TABLE transaction_stage")
 
-//sqlContext.sql("INSERT INTO transaction PARTITION(transaction_date) SELECT TransactionID, product_id, store_id, LoyaltyID, amount, discount, CAST(TransactionDate AS DATE)  FROM Output");
+sqlContext.sql("INSERT INTO transaction_stage SELECT getTransId(TransactionDate, store_id, product_id, TransactionID) AS TransactionID, product_id, store_id, LoyaltyID, amount, discount, CAST(TransactionDate AS DATE)  FROM Output")
+
+sqlContext.sql("INSERT INTO transaction PARTITION(transaction_date) SELECT TransactionID, product_id, store_id, loyalty_id, amount, discount, transaction_date  FROM transaction_stage WHERE TransactionID NOT IN (SELECT TransactionID FROM Transaction)");
 
 // val prepSaveFile = mdfOutput.map(x => x.mkString("|"))
 
