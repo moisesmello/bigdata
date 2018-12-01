@@ -1,0 +1,14 @@
+def getTransId(ts:String, d_store_id:Int, d_lane:Int, d_trans_seq:Int): Long = {
+   val daydate = ts.replaceAll("-","").split(" ")(0)
+   val store_id = "%05d".format(d_store_id)
+   val lane = "%02d".format(d_lane)
+   val trans_seq = "%04d".format(d_trans_seq)
+
+   (daydate + store_id.toString + lane.toString + trans_seq.toString).toLong
+}
+
+val transId = getTransId(_,_,_,_)
+
+sqlContext.udf.register("getTransId", transId)
+
+sqlContext.sql("SELECT getTransId(1,23,78,998)").show()

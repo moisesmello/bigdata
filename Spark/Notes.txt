@@ -31,3 +31,9 @@
 - spark-shell -i <file name> => to run a script file
 
 - records.filter(x => x(1) == "TT").collect.foreach(x=> println(x.mkString(",")))
+
+- val mytext = "Moises Mello"
+- mytext.replace("M","N")
+
+var myvalue = 5
+"%05d".format(myvalue)

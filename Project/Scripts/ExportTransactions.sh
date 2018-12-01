@@ -1,0 +1,1 @@
+sqoop export --connect jdbc:mysql://localhost:3306/Project --username root --password cloudera --table Transaction --fields-terminated-by '|' --export-dir $1

@@ -1,0 +1,60 @@
+Vertical Scalability -> Each column in one node
+horizontal Scalability -> each node holds some portion of the data
+
+Architecture:
+Zookeeper - monitors all nodes and store the metadata of the tables
+Edge Node - open to all clients (none go directly to the data nodes)
+Region Servers - Clients
+Versions per record
+Works with column families
+
+Good when we have a lot of updates to the data
+
+Minor compact -> merge files
+Major files -> will balance files
+
+************************************************************************
+COMMANDS
+
+-> Open HBase
+hbase shell
+
+create 'employee','personal data','professional data'
+list
+
+scan 'employee'
+
+describe 'employee'
+
+put 'employee','1','personal data:name','Moises'
+
+put 'employee','1','personal data:age','10'
+get 'employee', '1'
+get 'employee', '1', 'personal data:age'
+
+count 'employee'
+
+delete 'employee','3','personal data:name'
+
+deleteall 'employee', '3'
+
+t = get_table 'employee'
+t.scan (...)
+
+-> WITH NAMESPACE
+create_namespace 'basedb'
+create 'basedb:animal'
+scan 'basedb:animal'
+
+scan 'employee',{LIMIT=>1}
+
+**************************************
+EXPORT TABLES
+
+hbase org.apache.hadoop.hbase.mapreduce.Export "<table name>" "<HDSF location>"
+
+Ex.:
+hbase org.apache.hadoop.hbase.mapreduce.Export "employee" "/data/HBase"
+
+-> hbase org.apache.hadoop.hbase.mapreduce.Import 'tablename' 'target import location'
+

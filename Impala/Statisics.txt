@@ -1,0 +1,17 @@
+Update statistics when joining big tables -> improve perfomance. Recommended to do ofter, on a silent period of time
+
+- show table stats transaction;
+- show column stats <table name>
+
+- compute stats transaction;
+- Compute incremental stats transaction;
+- Compute incremental stats transaction partition (trans_dt='24-Nov-2018'); 
+
+- collect stats <table>
+
+- Drop stats transaction;
+- Drop incremental stats transaction partition (trans_dt=’24-Nov-2018’); 
+
+SHOW the plan
+
+- explain <query>
