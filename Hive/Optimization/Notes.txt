@@ -1,0 +1,8 @@
+-- Storage formats available:
+
+CREATE TABLE <table name> (<fields>) STORED AS PARQUET TBLPROPERTIES ("parquet.compression"="SNAPPY");
+CREATE TABLE <table name> (<fields>) STORED AS PARQUET TBLPROPERTIES ("parquet.compression"="gzip");
+CREATE TABLE <table name> (<fields>) STORED AS AVRO;
+
+-- Most common: 
+PARQUET SNAPPY

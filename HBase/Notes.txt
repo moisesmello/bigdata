@@ -2,7 +2,7 @@ Vertical Scalability -> Each column in one node
 horizontal Scalability -> each node holds some portion of the data
 
 Architecture:
-Zookeeper - monitors all nodes and store the metadata of the tables
+Zookeeper - monitors all nodes and stores the metadata of the tables
 Edge Node - open to all clients (none go directly to the data nodes)
 Region Servers - Clients
 Versions per record

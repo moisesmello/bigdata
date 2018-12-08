@@ -1,0 +1,37 @@
+java -version 
+sudo apt-get remove scala-library scala 
+sudo wget http://scala-lang.org/files/archive/scala-2.11.0.deb
+sudo dpkg -i scala-2.11.0.deb
+rm -f scala-2.11.0.deb
+
+-- download Kafka: https://kafka.apache.org/downloads and place in a folder.
+
+-- Extract the file
+
+-- Place into a folder
+
+-- Add following content to .bashrc file
+#KAFKA VARIABLES START
+export KAFKA_HOME=<path>
+export PATH=$PATH:$KAFKA_HOME/bin
+#KAFKA VARIABLES END
+
+-- Start the Zookeeper
+-- Zookeeper port is in the config/zookeeper.properties file
+bin/zookeeper-server-start.sh config/zookeeper.properties
+
+-- Start Kafka server
+-- The distribution port is in this config file
+bin/kafka-server-start.sh config/server.properties &
+
+-- Create a topic
+bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test
+
+-- Verify that the topic exists
+bin/kafka-topics.sh --list --zookeeper localhost:2181
+
+-- Create producer
+bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test
+
+-- Create consumer
+bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning

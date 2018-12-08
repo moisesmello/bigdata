@@ -1,0 +1,23 @@
+STREAMING
+
+pub sub architecture ->
+Broker -> machine hosting several topics
+Dat source publishes data the topics
+Publisher -> Partitions -> Topic -> Broker -> Consumer
+Topic -> can have muliple partitions
+Partitions can be allocated to several consumers
+There may be multiple consumers
+Paralelism
+The data doesn't come from HDFS, but local files
+
+There are 4 types of APIs
+Producer
+Consumer
+
+ORDERING SEMANTICS
+-> FIFO
+-> Causal (dependency)
+-> Total Order (all instances receive messages in the same order)
+
+
+Keep an eye on duplicated messages (at least once)
